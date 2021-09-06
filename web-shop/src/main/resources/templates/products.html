@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <link href="/webjars/bootstrap/4.3.1/css/bootstrap.css" rel="stylesheet" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript" src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../static/main.js" th:src="@{/main.js}"></script>
+    <link th:href="@{/styles.css}" rel="stylesheet" />
+    <meta charset="UTF-8">
+    <title>Users</title>
+</head>
+<body>
+<div th:replace="/shared/header :: header" />
+<div class="container pt-3 mb-5">
+    <h2 class="mb-4">Available products</h2>
+    <div class="product-wrapper sort-buttons">
+        <a th:href="@{/products/(nameSortBool=${nameSort} ? false : true, categoryId=${categoryId})}" class="mb-2">Sort by name</a>
+        <a th:href="@{/products/(priceSortBool=${priceSort} ? false : true, categoryId=${categoryId})}" class="mb-2 ml-5">Sort by price</a>
+    </div>
+    <div class="cat-prod-container">
+        <div class="content-block category-content-block-left mr-3">
+            <h3 class="mb-3">Categories</h3>
+            <p class="mb-3">
+                <a href="/products" class="category">All</a>
+            </p>
+            <div th:each="category:${categories}">
+                <p class="mb-3">
+                    <a th:href="@{/products/(categoryId=${category.id})}" th:text="${category.name}" class="category"/>
+                </p>
+            </div>
+        </div>
+
+        <div class="content-block">
+            <div th:each="product:${products}">
+                <div class="product-wrapper border-bottom border-top border-warning" />
+                    <img th:src="${product.image}" height="200px" width=200px class="product-image">
+                    <div class="product-info p-2 pl-4">
+                        <div class="product-info-left">
+                            <h5 th:text="${product.name}" />
+                            <p th:text="${product.description}" />
+                        </div>
+                        <div class="product-info-right">
+                            <span class="mt-5"><h4 class="d-inline">$</h4><h4 th:text="${product.price}" class="d-inline" /></span>
+                            <a th:href="@{/addToCart/(id=${product.Id})}" class="product-button btn mb-4">Add to Cart</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
