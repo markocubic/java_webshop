@@ -14,7 +14,7 @@
 <div class="cart-container container pt-3 mb-5">
     <div class="content-block content-block-left mr-3">
         <h2 class="mb-4">CART</h2>
-        <div th:each="product, iStat : ${cart}" class="cart-list">
+        <div th:each="product, iStat : ${uniqueProducts}" class="cart-list">
             <div class="product-wrapper border-bottom border-warning" >
                 <img th:src="${product.image}" height="200px" width=200px class="product-image">
                 <div class="product-info p-2 pl-4">
@@ -24,7 +24,8 @@
                     </div>
                     <div class="product-info-right">
                         <span><h4 class="d-inline">$</h4><h4 th:text="${product.price}" class="mt-5 d-inline" /></span>
-                        <a th:href="@{/cart/removeItem/(index=${iStat.index})}" class="product-button-remove btn mb-4">Remove</a>
+                        <span><h4 class="d-inline">x</h4><h4 th:text="*{uniqueProductsAmount[__${iStat.index}__]}" class="mt-5 d-inline" /></span>
+                        <a th:href="@{/cart/removeItem/(index=${product.getId()})}" class="product-button-remove btn mb-4">Remove</a>
                     </div>
                 </div>
             </div>

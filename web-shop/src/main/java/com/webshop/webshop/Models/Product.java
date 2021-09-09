@@ -2,6 +2,7 @@ package com.webshop.webshop.Models;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Objects;
 
 @Entity
 @Table(name = "product")
@@ -33,6 +34,19 @@ public class Product {
         this.isPublic = isPublic;
         this.dateCreated = dateCreated;
         this.category = category;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Product product = (Product) o;
+        return Objects.equals(Id, product.Id) && Objects.equals(name, product.name) && Objects.equals(description, product.description) && Objects.equals(image, product.image) && Objects.equals(price, product.price) && Objects.equals(isPublic, product.isPublic) && Objects.equals(category, product.category);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(Id, name, description, image, price, isPublic, category);
     }
 
     public Integer getId() {
